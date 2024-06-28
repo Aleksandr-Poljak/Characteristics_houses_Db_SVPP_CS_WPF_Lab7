@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Configuration;
+using System.Data.SqlClient;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +18,12 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DbManager dbManager = new DbManager("DefaultConnection");
+
         public MainWindow()
         {
             InitializeComponent();
+            
         }
     }
 }
