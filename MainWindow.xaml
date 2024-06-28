@@ -5,8 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SVPP_CS_WPF_Lab7_Characteristics_houses_Db_"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Адреса" Height="500" Width="800">
+    <Grid Name="Grid_Main" Background="DarkGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.8*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.8*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Name="StackPanel_Buttons" Grid.Column="0">
+            <Button Name="Btn_View" Content="Просмотор" Margin="25 100 25 10"/>
+            <Button Name="Btn_Insert" Content="Вставить"/>
+            <Button Name="Btn_Find" Content="Найти"/>
+            <Button Name="Btn_Update" Content="Обновить"/>
+            <Button Name="Btn_Delete" Content="Удалить" />
+        </StackPanel>
 
     </Grid>
 </Window>
