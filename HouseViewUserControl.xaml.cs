@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
 {
     /// <summary>
-    /// Логика взаимодействия для HouseViewUserControl.xaml
+    /// Визуально отображает данные переданного объекта House, позволяет его редактировать.
     /// </summary>
     public partial class HouseViewUserControl : UserControl
     {
-        House house = new();
+        House house;
         public HouseViewUserControl()
         {
             InitializeComponent();

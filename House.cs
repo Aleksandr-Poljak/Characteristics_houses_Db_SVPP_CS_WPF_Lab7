@@ -185,6 +185,35 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
 
         }
 
+        public static IEnumerable<House> GetAllHouses()
+        {
+            using (SqlConnection conn = dbManager.GetNewConnection())
+            {
+                string sqlStr = "SELECT * FROM Housing";
+                SqlCommand sqlCmd_GetAll = new SqlCommand(sqlStr, conn);
+                SqlDataReader reader = sqlCmd_GetAll.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        House house = new House(
+                            (string)reader["City"],
+                            (string)reader["Street"],
+                            (int)reader["Number"],
+                            (bool)reader["HasElevator"],
+                            reader["Flat"] is System.DBNull ? null : (int)reader["Flat"],
+                            reader["Floor"] is System.DBNull ? null : (int)reader["Floor"],
+                            reader["OwnerFIO"] is System.DBNull ? null : (string)reader["OwnerFIO"],
+                            reader["Tel"] is System.DBNull ? null : (int)reader["Flat"]
+                            );
+                        house.Id = (int) reader["Id"];
+                        yield return house;
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Проверяет есть ли в базе данных данные,если нет- создает 3 строки.
         /// </summary>
@@ -214,9 +243,8 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
 
         public override string ToString()
         {
-            string info = $"Id- {id.ToString()} City- {City}, Street- {Street}, Number- {Number}\n" +
-                $"Flat- {Flat?.ToString()}, HasElevator- {HasElevator}, Floor- {Floor?.ToString()}" +
-                $"Tel: {Tel?.ToString()}\nOwner- {owner?.ToString()}";
+            string info = $"ID {Id}: {City}, ул. {Street}, дом {Number}, кв. {Flat?.ToString()}\n" +
+                $"Владелец: {Owner?.ToString()}";
             return info;
         }
     }
