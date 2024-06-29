@@ -12,6 +12,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="0.8*"/>
         </Grid.ColumnDefinitions>
+
         <StackPanel Name="StackPanel_Buttons" Grid.Column="0">
             <Button Name="Btn_View" Content="Просмотор" Margin="25 100 25 10"/>
             <Button Name="Btn_Insert" Content="Вставить"/>

@@ -18,12 +18,22 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DbManager dbManager = new DbManager("DefaultConnection");
+        House house = new();
 
         public MainWindow()
         {
             InitializeComponent();
-            
+            init_HouseViewUserControl();
+                     
+        }
+
+        private void init_HouseViewUserControl()
+        {
+            HouseViewUserControl houseView =  new HouseViewUserControl(ref house);
+            houseView.Margin = new Thickness(5);
+            Grid.SetColumn(houseView, 2);
+
+            Grid_Main.Children.Add(houseView);
         }
     }
 }

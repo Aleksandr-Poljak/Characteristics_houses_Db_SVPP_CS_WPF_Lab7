@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Security.Policy;
 using System.Text;
@@ -11,6 +13,9 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
 {
     public class House: INotifyPropertyChanged
     {
+
+        static DbManager dbManager = new DbManager("DefaultConnection");
+
         int id = 0;
         string city = string.Empty;
         string street = string.Empty;
@@ -103,12 +108,11 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
                 OnPropertyChanged(nameof(Owner));
             }
         }
-
-        public House(int id, string city, string street, int number, 
-            bool hasElevator = false, int? flat = null, int? floor = null,  
-            string? owner1 = null, int? tel = null)
+        public House() { }
+        public House(string city, string street, int number,
+            bool hasElevator = false, int? flat = null, int? floor = null,
+            string? owner1 = null, int? tel = null) : this()
         {
-            Id = id;
             City = city;
             Street = street;
             Number = number;
@@ -117,6 +121,11 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
             Floor = floor;
             Tel = tel;
             Owner = owner1;
+        }
+
+        static House()
+        {
+            SeedRandomData();
         }
 
         public void OnPropertyChanged([CallerMemberName] string prop="")
@@ -130,9 +139,40 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
 
         }
         
+        /// <summary>
+        /// Сохрнаяет объект в базе данных.
+        /// </summary>
         public void Insert()
         {
+            using(SqlConnection conn = dbManager.GetNewConnection())
+            {
+                string sqlStr = "INSERT INTO Housing " +
+                    "(City, Street, Number, Flat, HasElevator, Floor, Tel, OwnerFIO)" +
+                    " VALUES (@City, @Street, @Number, @Flat, @HasElevator, @Floor, @Tel, @OwnerFIO);" +
+                    "SET @id=SCOPE_IDENTITY()";
 
+                SqlCommand sqlCmd_Insert = new(sqlStr, conn);
+                //--Параметры--
+                // Выходной параметр c id записи.
+                SqlParameter idParam = new("id", System.Data.SqlDbType.Int);
+                idParam.Direction = System.Data.ParameterDirection.Output;
+                SqlParameter[] param = new SqlParameter[]
+                {
+                    new SqlParameter("City", City),
+                    new SqlParameter("Street", Street),
+                    new SqlParameter("Number", Number),
+                    new SqlParameter("Flat", (object)Flat ?? DBNull.Value),
+                    new SqlParameter("HasElevator", HasElevator),
+                    new SqlParameter("Floor", (object)Floor ?? DBNull.Value),
+                    new SqlParameter("Tel", (object)Tel ?? DBNull.Value),
+                    new SqlParameter("OwnerFIO", (object)Owner ?? DBNull.Value),
+                    idParam
+                };
+
+                sqlCmd_Insert.Parameters.AddRange(param);
+                sqlCmd_Insert.ExecuteNonQuery();
+                this.Id = (int) idParam.Value;
+            }
         }
              
         public static void Delete()
@@ -142,6 +182,33 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
 
         public static void Find()
         {
+
+        }
+
+        /// <summary>
+        /// Проверяет есть ли в базе данных данные,если нет- создает 3 строки.
+        /// </summary>
+        public static void SeedRandomData()
+        {
+            string sqlStr = "SELECT COUNT(Id) FROM Housing";
+            using(SqlConnection conn = dbManager.GetNewConnection())
+            {
+                SqlCommand sqlCmd_CountId = new SqlCommand(sqlStr, conn);
+                int result = (int) sqlCmd_CountId.ExecuteScalar();
+                
+                if(result < 2)
+                {
+                    House tempHouse1 = new House("Минск", "Одинцова", 15, 
+                        true, 35, 9, "Василевская А. А.", 56123);
+                    House tempHouse2 = new House("Минск", "Вороняского", 20,
+                        false, null, null, "Халаев С.А", null);
+                    House tempHouse3 = new House("Минск", "Богдановича", 34,
+                        false, 10, 5, null, null);
+                    tempHouse1.Insert();
+                    tempHouse2.Insert();
+                    tempHouse3.Insert();
+                }
+            }
 
         }
 
