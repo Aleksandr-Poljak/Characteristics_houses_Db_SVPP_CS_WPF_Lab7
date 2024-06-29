@@ -27,5 +27,16 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
             house = houseElement;
             Grid_Main_HouseView.DataContext = house;
         }
+
+        /// <summary>
+        /// Включает и отключает поля ввода (изменения объекта)
+        /// </summary>
+        public void InputIsEnabled(bool IsEnabled)
+        {
+            foreach (var item in Grid_Main_HouseView.Children)
+            {
+                if (item is Control element) element.IsEnabled = IsEnabled;
+            }
+        }
     }
 }

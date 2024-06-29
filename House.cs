@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
 {
-    public class House
+    public class House: INotifyPropertyChanged
     {
         int id = 0;
         string city = string.Empty;
@@ -19,15 +21,88 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
         int? tel = null;
         string? owner = null;
 
-        public int Id { get => id; set => id = value; }
-        public string City { get => city; set => city = value; }
-        public string Street { get => street; set => street = value; }
-        public int Number { get => number; set => number = value; }
-        public int? Flat { get => flat; set => flat = value; }
-        public bool HasElevator { get => hasElevator; set => hasElevator = value; }
-        public int? Floor { get => floor; set => floor = value; }
-        public int? Tel { get => tel; set => tel = value; }
-        public string? Owner { get => owner; set => owner = value; }
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public int Id 
+        {   get => id;
+            set
+            {
+                id = value;
+                OnPropertyChanged(nameof(Id));
+            }
+        }
+        public string City 
+        {
+            get => city;
+            set
+            {
+                city = value;
+                OnPropertyChanged(nameof(City));
+            }
+        }
+        public string Street 
+        { 
+            get => street; 
+            set
+            {
+                street = value;
+                OnPropertyChanged(nameof(Street));
+            }
+        }
+        public int Number 
+        { 
+            get => number; 
+            set
+            {
+                number = value;
+                OnPropertyChanged(nameof(Number));
+            }
+        }
+        public int? Flat 
+        { 
+            get => flat;
+            set
+            {
+                flat = value;
+                OnPropertyChanged(nameof(Flat));
+            }
+        }
+        public bool HasElevator 
+        { 
+            get => hasElevator;
+            set 
+            {
+                hasElevator = value;
+                OnPropertyChanged(nameof(HasElevator));
+            }
+        }
+        public int? Floor
+        {
+            get => floor;
+            set
+            {
+                floor = value;
+                OnPropertyChanged(nameof(Floor));
+            } 
+        }
+        public int? Tel 
+        { 
+            get => tel; 
+            set
+            {
+                tel = value;
+                OnPropertyChanged(nameof(Tel));
+            }   
+        }
+        public string? Owner 
+        {
+            get => owner; 
+            set
+            {
+                owner = value;
+                OnPropertyChanged(nameof(Owner));
+            }
+        }
 
         public House(int id, string city, string street, int number, 
             bool hasElevator = false, int? flat = null, int? floor = null,  
@@ -42,6 +117,12 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
             Floor = floor;
             Tel = tel;
             Owner = owner1;
+        }
+
+        public void OnPropertyChanged([CallerMemberName] string prop="")
+        {
+            if(PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
         public void Udpade()

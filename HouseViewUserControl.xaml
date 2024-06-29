@@ -9,8 +9,8 @@
     <UserControl.Resources>
         
         <Style TargetType="TextBox">
+            <Setter Property="IsEnabled" Value="False"/>
             <Setter Property="Margin" Value="5 10 10 10" />
-            <Setter Property="Text" Value="0qwer0"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="MaxLength" Value="50"/>
@@ -48,17 +48,27 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBox Name="TextBox_Id"  Grid.Row="0" Grid.Column="1"/>
-            <TextBox Name="TextBox_City" Grid.Row="1" Grid.Column="1"/>
-            <TextBox Name="TextBox_Street" Grid.Row="2" Grid.Column="1"/>
-            <TextBox Name="TextBox_Number" Grid.Row="3" Grid.Column="1"/>
-            <TextBox Name="TextBox_Floor" Grid.Row="4" Grid.Column="1"/>
-            <TextBox Name="TextBox_Flat" Grid.Row="5" Grid.Column="1"/>
+            <TextBox Name="TextBox_Id"  Grid.Row="0" Grid.Column="1"
+                     Text="{Binding Id, Mode=TwoWay}"/>
+            <TextBox Name="TextBox_City" Grid.Row="1" Grid.Column="1"
+                     Text="{Binding City, Mode=TwoWay}"/>
+            <TextBox Name="TextBox_Street" Grid.Row="2" Grid.Column="1"
+                     Text="{Binding Street, Mode=TwoWay}"/>
+            <TextBox Name="TextBox_Number" Grid.Row="3" Grid.Column="1"
+                     Text="{Binding Number, Mode=TwoWay}"/>
+            <TextBox Name="TextBox_Floor" Grid.Row="4" Grid.Column="1"
+                     Text="{Binding Floor, Mode=TwoWay}"/>
+            <TextBox Name="TextBox_Flat" Grid.Row="5" Grid.Column="1"
+                     Text="{Binding Flat, Mode=TwoWay}"/>
             <CheckBox Name="CheckBox_Elevator" Grid.Row="6" Grid.Column="1"
-                      IsChecked="False" HorizontalAlignment="Center"
-                      VerticalAlignment="Center"/>
-            <TextBox Name="TextBox_Owner" Grid.Row="7" Grid.Column="1"/>
-            <TextBox Name="TextBox_Tel" Grid.Row="8" Grid.Column="1"/>
+                      IsChecked="{Binding Haselevator, Mode=TwoWay}"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      IsEnabled="False"/>
+            <TextBox Name="TextBox_Owner" Grid.Row="7" Grid.Column="1"
+                     Text="{Binding Owner, Mode=TwoWay}"/>
+            <TextBox Name="TextBox_Tel" Grid.Row="8" Grid.Column="1"
+                     Text="{Binding Tel, Mode=TwoWay}"/>
         </Grid>
 
         <Grid Name="Grid_HouseText" Grid.Column="0">
