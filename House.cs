@@ -17,7 +17,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
         bool hasElevator = false;
         int? floor = null;
         int? tel = null;
-        string? Owner = null;
+        string? owner = null;
 
         public int Id { get => id; set => id = value; }
         public string City { get => city; set => city = value; }
@@ -27,7 +27,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
         public bool HasElevator { get => hasElevator; set => hasElevator = value; }
         public int? Floor { get => floor; set => floor = value; }
         public int? Tel { get => tel; set => tel = value; }
-        public string? Owner1 { get => Owner; set => Owner = value; }
+        public string? Owner { get => owner; set => owner = value; }
 
         public House(int id, string city, string street, int number, 
             bool hasElevator = false, int? flat = null, int? floor = null,  
@@ -41,7 +41,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
             HasElevator = hasElevator;
             Floor = floor;
             Tel = tel;
-            Owner1 = owner1;
+            Owner = owner1;
         }
 
         public void Udpade()
@@ -68,7 +68,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
         {
             string info = $"Id- {id.ToString()} City- {City}, Street- {Street}, Number- {Number}\n" +
                 $"Flat- {Flat?.ToString()}, HasElevator- {HasElevator}, Floor- {Floor?.ToString()}" +
-                $"Tel: {Tel?.ToString()}\nOwner- {Owner?.ToString()}";
+                $"Tel: {Tel?.ToString()}\nOwner- {owner?.ToString()}";
             return info;
         }
     }
