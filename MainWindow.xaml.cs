@@ -55,7 +55,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
         }
 
         /// <summary>
-        /// Обработчик кнопки Обновить.
+        /// Обработчик события нажатия кнопки Обновить.
         /// Запрашивает все объекты и обновляет коллекцию.
         /// </summary>
         private void Btn_Update_Click(object sender, RoutedEventArgs e)
@@ -65,6 +65,11 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
 
         }
 
+        /// <summary>
+        /// Обработчик события нажатия кнопки Просмотор
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_View_Click(object sender, RoutedEventArgs e)
         {
             House item = (House)ListBox_AllHouse.SelectedItem;

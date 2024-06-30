@@ -21,7 +21,7 @@
             <Button Name="Btn_Delete" Content="Удалить" />
         </StackPanel>
         <!--Добавлен для няглядности при верстке.Удалить при сборке. Добавляется в коде-->
-        <!--<local:HouseViewUserControl Grid.Column="2"/>-->
+        <local:HouseViewUserControl Grid.Column="2"/>
 
         <ListBox x:Name="ListBox_AllHouse" Grid.Column="1" Margin="5" Background="DarkGray"
                  ItemsSource="{Binding}"/>
