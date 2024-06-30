@@ -20,15 +20,14 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
     /// </summary>
     public partial class HouseViewUserControl : UserControl
     {
-        House house;
+        public House House;
         public HouseViewUserControl()
         {
             InitializeComponent();
         }
         public HouseViewUserControl(ref House houseElement) : this()
         {
-            house = houseElement;
-            Grid_Main_HouseView.DataContext = house;
+            ViewHouse(ref houseElement);
         }
 
         /// <summary>
@@ -40,6 +39,12 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
             {
                 if (item is Control element) element.IsEnabled = IsEnabled;
             }
+        }
+
+        public void ViewHouse(ref House houseElement)
+        {
+            this.House = houseElement;
+            Grid_Main_HouseView.DataContext = this.House;
         }
     }
 }

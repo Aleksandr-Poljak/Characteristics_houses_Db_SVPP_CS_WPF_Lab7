@@ -61,7 +61,8 @@
             <TextBox Name="TextBox_Flat" Grid.Row="5" Grid.Column="1"
                      Text="{Binding Flat, Mode=TwoWay}"/>
             <CheckBox Name="CheckBox_Elevator" Grid.Row="6" Grid.Column="1"
-                      IsChecked="{Binding Haselevator, Mode=TwoWay}"
+                      IsChecked="{Binding HasElevator, Mode=TwoWay, 
+                      UpdateSourceTrigger=PropertyChanged}"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       IsEnabled="False"/>
@@ -97,9 +98,6 @@
                        Text="Владелец:"/>
             <TextBlock Name="TextBlock_Tel" Grid.Row="8" Grid.Column="0" Text="Телефон:"/>
         </Grid>
-        
-
-       
 
     </Grid>
 </UserControl>

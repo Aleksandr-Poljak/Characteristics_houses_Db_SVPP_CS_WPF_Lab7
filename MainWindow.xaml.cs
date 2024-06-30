@@ -20,6 +20,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
     public partial class MainWindow : Window
     {
         House house = new();
+        HouseViewUserControl HouseViewUC;
         ObservableCollection<House> houses = new ObservableCollection<House>();
 
         public MainWindow()
@@ -36,11 +37,12 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
         /// </summary>
         private void init_HouseViewUserControl()
         {
-            HouseViewUserControl houseView =  new HouseViewUserControl(ref house);
-            houseView.Margin = new Thickness(5);
-            Grid.SetColumn(houseView, 2);
+            HouseViewUC =  new HouseViewUserControl(ref house);
+            //HouseViewUC.Name = "HouseViewUC";
+            HouseViewUC.Margin = new Thickness(5);
+            Grid.SetColumn(HouseViewUC, 2);
 
-            Grid_Main.Children.Add(houseView);
+            Grid_Main.Children.Add(HouseViewUC);
         }
 
         /// <summary>
@@ -56,13 +58,17 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
         /// Обработчик кнопки Обновить.
         /// Запрашивает все объекты и обновляет коллекцию.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Btn_Update_Click(object sender, RoutedEventArgs e)
         {
             houses.Clear();
             foreach (House item in House.GetAllHouses()) houses.Add(item);
 
+        }
+
+        private void Btn_View_Click(object sender, RoutedEventArgs e)
+        {
+            House item = (House)ListBox_AllHouse.SelectedItem;
+            HouseViewUC.ViewHouse(ref item);
         }
     }
 }

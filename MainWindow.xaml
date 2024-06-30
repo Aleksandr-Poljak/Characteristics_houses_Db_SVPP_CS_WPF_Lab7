@@ -14,14 +14,14 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Name="StackPanel_Buttons" Grid.Column="0">
-            <Button Name="Btn_View" Content="Просмотор" Margin="25 100 25 10"/>
+            <Button Name="Btn_View" Content="Просмотор" Margin="25 100 25 10" Click="Btn_View_Click"/>
             <Button Name="Btn_Insert" Content="Вставить"/>
             <Button Name="Btn_Find" Content="Найти"/>
             <Button Name="Btn_Update" Content="Обновить" Click="Btn_Update_Click"/>
             <Button Name="Btn_Delete" Content="Удалить" />
         </StackPanel>
         <!--Добавлен для няглядности при верстке.Удалить при сборке. Добавляется в коде-->
-        <local:HouseViewUserControl Grid.Column="2"/>
+        <!--<local:HouseViewUserControl Grid.Column="2"/>-->
 
         <ListBox x:Name="ListBox_AllHouse" Grid.Column="1" Margin="5" Background="DarkGray"
                  ItemsSource="{Binding}"/>
