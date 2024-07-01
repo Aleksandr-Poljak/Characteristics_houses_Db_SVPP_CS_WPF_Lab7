@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
+namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
+namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
 {
     /// <summary>
     /// Визуально отображает данные переданного объекта House, позволяет его редактировать.
     /// </summary>
     public partial class HouseViewUserControl : UserControl
     {
-        public House House;
+        public House House ;
         public HouseViewUserControl()
         {
             InitializeComponent();
@@ -35,12 +35,16 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
         /// </summary>
         public void InputIsEnabled(bool IsEnabled)
         {
-            foreach (var item in Grid_Main_HouseView.Children)
+            foreach (var item in Grid_HouseValues.Children)
             {
                 if (item is Control element) element.IsEnabled = IsEnabled;
             }
+            TextBox_Id.IsEnabled = false;
         }
 
+        /// <summary>
+        /// Отображет новый объект.
+        /// </summary>
         public void ViewHouse(ref House houseElement)
         {
             this.House = houseElement;

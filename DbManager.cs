@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
+namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
 {
     public class DbManager
     {

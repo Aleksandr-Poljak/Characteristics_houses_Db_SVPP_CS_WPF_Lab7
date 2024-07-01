@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
+namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -74,6 +74,21 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db_
         {
             House item = (House)ListBox_AllHouse.SelectedItem;
             HouseViewUC.ViewHouse(ref item);
+        }
+
+        /// <summary>
+        /// Обработчик нажатия кнопки Вставить.
+        /// Открывает диалоговое окно для ввода данных. Сохранят введенные данные
+        /// в базе данных и в коллекции объектов.
+        /// </summary>
+        private void Btn_Insert_Click(object sender, RoutedEventArgs e)
+        {
+            NewHouse newHouse = new();
+            if (newHouse.ShowDialog() == true)
+            {
+                newHouse.house.Insert();
+                houses.Add(newHouse.house);
+            }
         }
     }
 }
