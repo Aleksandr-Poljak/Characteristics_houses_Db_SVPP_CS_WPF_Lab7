@@ -14,11 +14,13 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Name="StackPanel_Buttons" Grid.Column="0">
-            <Button Name="Btn_View" Content="Просмотор" Margin="25 100 25 10" Click="Btn_View_Click"/>
+            <Button Name="Btn_View" Content="Просмотор" Margin="25 100 25 10"
+                    Click="Btn_View_Click"/>
+            <Button Name="Btn_Edit" Content="Редактировать" Click="Btn_Edit_Click"/>
             <Button Name="Btn_Insert" Content="Вставить" Click="Btn_Insert_Click"/>
             <Button Name="Btn_Find" Content="Найти"/>
             <Button Name="Btn_Update" Content="Обновить" Click="Btn_Update_Click"/>
-            <Button Name="Btn_Delete" Content="Удалить" />
+            <Button Name="Btn_Delete" Content="Удалить" Click="Btn_Delete_Click" />
         </StackPanel>
         
         <!--Добавлен для няглядности при верстке.Удалить при сборке. Добавляется в коде-->   

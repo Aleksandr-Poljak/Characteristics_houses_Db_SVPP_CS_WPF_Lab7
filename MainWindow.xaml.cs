@@ -73,7 +73,8 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
         private void Btn_View_Click(object sender, RoutedEventArgs e)
         {
             House item = (House)ListBox_AllHouse.SelectedItem;
-            HouseViewUC.ViewHouse(ref item);
+            if (item is not null)           
+                HouseViewUC.ViewHouse(ref item);        
         }
 
         /// <summary>
@@ -89,6 +90,32 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
                 newHouse.house.Insert();
                 houses.Add(newHouse.house);
             }
+        }
+
+        private void Btn_Edit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Обработчик нажатия кнопки Удалить.
+        /// Удаляет объект из базы данных и ListBox.
+        /// </summary>
+        private void Btn_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            House item = (House)ListBox_AllHouse.SelectedItem;
+            if (item is not null)
+            {
+                MessageBoxResult result= MessageBox.Show($"Удалить\n{item.ToString()}?",
+                    "Удалить", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.OK)
+                {
+                    item.Delete();
+                    Btn_Update_Click(sender, e);
+                }             
+            }
+                
+
         }
     }
 }

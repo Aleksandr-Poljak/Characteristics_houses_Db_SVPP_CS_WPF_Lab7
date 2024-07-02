@@ -174,9 +174,29 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
                 this.Id = (int) idParam.Value;
             }
         }
-             
-        public static void Delete()
+         
+        /// <summary>
+        /// Удаляет объект из базы данных.
+        /// </summary>
+        public void Delete()
         {
+            using (SqlConnection conn = dbManager.GetNewConnection())
+            {
+                string sqlStr = "DELETE FROM Housing WHERE(Id=@Id)";
+                SqlCommand sqlCmd_Delete = new(sqlStr, conn);
+                sqlCmd_Delete.Parameters.Add(new SqlParameter("Id", Id));
+                sqlCmd_Delete.ExecuteNonQuery();
+
+                this.Id = 0;
+                this.City = String.Empty;
+                this.Street = String.Empty;
+                this.Number = 0;
+                this.HasElevator = false;
+                this.Owner = null;
+                this.tel = null;
+                this.Flat = null;
+                this.Floor = null;
+            }
 
         }
 
