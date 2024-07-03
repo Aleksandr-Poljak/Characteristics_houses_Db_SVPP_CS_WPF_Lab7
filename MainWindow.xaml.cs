@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using SVPP_CS_WPF_Lab7_Characteristics_houses_Db_;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Text;
@@ -21,7 +22,11 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
     {
         House house = new();
         HouseViewUserControl HouseViewUC;
+
         ObservableCollection<House> houses = new ObservableCollection<House>();
+
+        FindHouse? findHouseWindow = null;
+
 
         public MainWindow()
         {
@@ -78,17 +83,17 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
         }
 
         /// <summary>
-        /// Обработчик нажатия кнопки Вставить.
+        /// Обработчик события нажатия кнопки Вставить.
         /// Открывает диалоговое окно для ввода данных. Сохранят введенные данные
         /// в базе данных и в коллекции объектов.
         /// </summary>
         private void Btn_Insert_Click(object sender, RoutedEventArgs e)
         {
-            NewHouse newHouse = new();
-            if (newHouse.ShowDialog() == true)
+            NewHouse newHouseWindow = new();
+            if (newHouseWindow.ShowDialog() == true)
             {
-                newHouse.house.Insert();
-                houses.Add(newHouse.house);
+                newHouseWindow.house.Insert();
+                houses.Add(newHouseWindow.house);
             }
         }
 
@@ -98,7 +103,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
         }
 
         /// <summary>
-        /// Обработчик нажатия кнопки Удалить.
+        /// Обработчик события нажатия кнопки Удалить.
         /// Удаляет объект из базы данных и ListBox.
         /// </summary>
         private void Btn_Delete_Click(object sender, RoutedEventArgs e)
@@ -117,5 +122,36 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
                 
 
         }
+
+        /// <summary>
+        /// Обрабочик события нажатия кнопки Найти.
+        /// Открывает окно поиска
+        /// </summary>
+        private void Btn_Find_Click(object sender, RoutedEventArgs e)
+        {
+            // Окно поиска не модальное, но может быть открыто только в одном экземпляре.
+            if (findHouseWindow is not null) 
+            {
+                findHouseWindow.Focus();
+            } 
+            else
+            {
+                houses.Clear();
+
+                findHouseWindow = new FindHouse() { Owner=this};
+                findHouseWindow.Closed += (EventHandler)( (sender, e) => this.findHouseWindow = null);
+                // Обработчик события очищает коллекцию связаную с ListBox.
+                // Заполняет коллекцию объектами поиска
+                findHouseWindow.FindingCompletionEvent +=
+                    (sender, e) => 
+                    { 
+                        houses.Clear();
+                        foreach(House item in findHouseWindow.Houses) houses.Add(item);
+                    };
+                
+                findHouseWindow.Show();
+            }
+        }
+
     }
 }

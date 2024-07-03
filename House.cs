@@ -199,12 +199,90 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
             }
 
         }
-
-        public static void Find()
+        
+        /// <summary>
+        /// Ищет объект в базе данных по id. Возвращает объект или null.
+        /// </summary>
+        public static House? FindByID(int id)
         {
+            House? resultHouse = null;
+            using (SqlConnection conn = dbManager.GetNewConnection())
+            {
+                string sqlStr = "SELECT * FROM Housing WHERE (Id=@Id)";
+                SqlCommand sqlCmd_Find = new(sqlStr, conn);
+                sqlCmd_Find.Parameters.Add(new SqlParameter("Id", id));
+                SqlDataReader reader = sqlCmd_Find.ExecuteReader();
 
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        House newHouse = new House(
+                            (string)reader["City"],
+                            (string)reader["Street"],
+                            (int)reader["Number"],
+                            (bool)reader["HasElevator"],
+                            reader["Flat"] is System.DBNull ? null : (int)reader["Flat"],
+                            reader["Floor"] is System.DBNull ? null : (int)reader["Floor"],
+                            reader["OwnerFIO"] is System.DBNull ? null : (string)reader["OwnerFIO"],
+                            reader["Tel"] is System.DBNull ? null : (int)reader["Flat"]
+                            );
+                        newHouse.Id = (int)reader["Id"];
+                        resultHouse = newHouse;
+                    }
+                }
+            }
+            return resultHouse;
         }
 
+        /// <summary>
+        /// Выполняет поиск в базе данных по городу или городу и улице.
+        /// Возвращает список объектов или пустой список.
+        /// </summary>
+        /// <returns></returns>
+        public static List<House> FindByNames(string city, string? street = null)
+        {
+            List<House> lstHouses = new List<House>();
+            string sqlStr = String.Empty;
+
+            using (SqlConnection conn = dbManager.GetNewConnection())
+            {
+                sqlStr = "SELECT * FROM Housing WHERE (City=@City)";
+                if (street != null) sqlStr += " AND (Street=@Street)";
+
+                SqlCommand sqlCmdFind = new(sqlStr, conn);
+                sqlCmdFind.Parameters.Add(new SqlParameter("City", city));
+                if (street != null) sqlCmdFind.Parameters.Add(
+                    new SqlParameter("Street", street)
+                    );
+
+                SqlDataReader reader = sqlCmdFind.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        House newHouse = new House(
+                            (string)reader["City"],
+                            (string)reader["Street"],
+                            (int)reader["Number"],
+                            (bool)reader["HasElevator"],
+                            reader["Flat"] is System.DBNull ? null : (int)reader["Flat"],
+                            reader["Floor"] is System.DBNull ? null : (int)reader["Floor"],
+                            reader["OwnerFIO"] is System.DBNull ? null : (string)reader["OwnerFIO"],
+                            reader["Tel"] is System.DBNull ? null : (int)reader["Flat"]
+                            );
+                        newHouse.Id = (int)reader["Id"];
+                        lstHouses.Add(newHouse);
+                    }
+                }
+            }
+
+            return lstHouses;
+        }
+
+        /// <summary>
+        /// Возвращает  все записи с базы данных.
+        /// </summary>
         public static IEnumerable<House> GetAllHouses()
         {
             using (SqlConnection conn = dbManager.GetNewConnection())

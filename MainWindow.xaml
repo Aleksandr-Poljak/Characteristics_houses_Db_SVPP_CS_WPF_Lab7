@@ -18,7 +18,7 @@
                     Click="Btn_View_Click"/>
             <Button Name="Btn_Edit" Content="Редактировать" Click="Btn_Edit_Click"/>
             <Button Name="Btn_Insert" Content="Вставить" Click="Btn_Insert_Click"/>
-            <Button Name="Btn_Find" Content="Найти"/>
+            <Button Name="Btn_Find" Content="Найти" Click="Btn_Find_Click"/>
             <Button Name="Btn_Update" Content="Обновить" Click="Btn_Update_Click"/>
             <Button Name="Btn_Delete" Content="Удалить" Click="Btn_Delete_Click" />
         </StackPanel>
