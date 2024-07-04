@@ -38,7 +38,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
                 }
             }
         }
-
+        
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
@@ -56,7 +56,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
         }
 
         /// <summary>
-        /// Включает и отключает поля ввода (изменения объекта)
+        /// Включает и отключает поля ввода (изменение объекта)
         /// </summary>
         public void InputIsEnabled(bool IsEnabled)
         {

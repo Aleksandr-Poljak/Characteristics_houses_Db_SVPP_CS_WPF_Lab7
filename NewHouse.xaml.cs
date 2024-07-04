@@ -24,7 +24,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
         {
             InitializeComponent();
             // Включить поля ввода
-            HouseViewUC.InputIsEnabled(true); 
+            HouseViewUC.InputIsEnabled(true);
             // Добавить объект для отображения и редактирования
             HouseViewUC.ViewHouse(ref house); 
 

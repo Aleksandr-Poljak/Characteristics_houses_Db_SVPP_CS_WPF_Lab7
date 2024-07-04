@@ -118,6 +118,10 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
                 string error = String.Empty;
                 switch (columnName)
                 {
+                    case nameof(Id):
+                        if(Id < 0)
+                            error = "Неверный Id!";
+                        break;
                     case nameof(City):
                         if (City.Length > 50 || City.Length == 0)
                             error = "Неверная длина!";
