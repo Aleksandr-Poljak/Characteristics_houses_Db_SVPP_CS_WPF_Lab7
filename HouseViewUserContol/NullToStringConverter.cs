@@ -10,7 +10,7 @@ using System.Windows.Data;
 namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
 {
     /// <summary>
-    /// Конвертер дляобработки null-значений.
+    /// Конвертер для обработки null-значений.
     /// </summary>
     class NullToStringConverter : IValueConverter
     {

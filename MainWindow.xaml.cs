@@ -19,14 +19,14 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {   
+    {
         //Класс недвижимоисти 
         House house = new();
-        //Пользовательский элемент упралвения для отображения и редактирования
+        //Пользовательский элемент управления для отображения и редактирования
         //данных объекта недвижимости
         HouseViewUserControl HouseViewUC;
 
-        //Коллекция объектов недвижиости с привязкой к ListBox
+        //Коллекция объектов недвижимости с привязкой к ListBox
         ObservableCollection<House> houses = new ObservableCollection<House>();
 
         // Окно поиска
@@ -42,16 +42,16 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
         }
 
         /// <summary>
-        /// Инициализация пользовательского элемента упралвения отображения данных объекта House.
+        /// Инициализация пользовательского элемента управления отображения данных объекта House.
         /// </summary>
         private void init_HouseViewUserControl()
         {
-            HouseViewUC =  new HouseViewUserControl(ref house);
+            HouseViewUC = new HouseViewUserControl(ref house);
             HouseViewUC.Name = "MainWindow_HouseViewUC";
             HouseViewUC.Margin = new Thickness(5);
             Grid.SetColumn(HouseViewUC, 2);
 
-            Grid_Main.Children.Add(HouseViewUC);        
+            Grid_Main.Children.Add(HouseViewUC);
         }
 
         /// <summary>
@@ -65,9 +65,9 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
 
         /// <summary>
         /// Создает динамические кнопки Сохранить и Отмена.
-        /// Кнопки видны, когда пользовательский элемент упралвения HouseViewUserControl
+        /// Кнопки видны, когда пользовательский элемент управления HouseViewUserControl
         /// доступен для ввода данных.
-        /// Создает конпки, добfвляет им стиль c сетерами.
+        /// Создает кнопки, добавляет им стиль c сеттерами.
         /// </summary>
         private void init_DynamicButtons()
         {
@@ -76,7 +76,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
             foreach (Button btn in buttons)
             {
                 Button btnCopy = btn;
-                // Не передовать элементы по ссылке из списка в цикле foreach.
+                // Не передавать элементы по ссылке из списка в цикле foreach.
                 installStyleDynamicVisible(ref btnCopy);
                 StackPanel_BtnSaveCancel.Children.Add(btnCopy);
             }
@@ -95,14 +95,14 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
         }
 
         /// <summary>
-        /// Обработчик события нажатия кнопки Просмотор
+        /// Обработчик события нажатия кнопки Просмотр
         /// </summary>
         private void Btn_View_Click(object sender, RoutedEventArgs e)
         {
             HouseViewUC.InputIsEnabled(false);
             House item = (House)ListBox_AllHouse.SelectedItem;
-            if (item is not null)           
-                HouseViewUC.ViewHouse(ref item);        
+            if (item is not null)
+                HouseViewUC.ViewHouse(ref item);
         }
 
         /// <summary>
@@ -123,17 +123,17 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
 
         /// <summary>
         /// Обработчик события кнопки Редактировать.
-        /// Включает поля HouseViewUserContro для редактирвоания. 
+        /// Включает поля HouseViewUserContro для редактирования. 
         /// </summary>
         private void Btn_Edit_Click(object sender, RoutedEventArgs e)
         {
             House item = (House)ListBox_AllHouse.SelectedItem;
-            if (item is not null  && item.Id != 0)
+            if (item is not null && item.Id != 0)
             {
                 HouseViewUC.ViewHouse(ref item);
                 HouseViewUC.InputIsEnabled(true);
             }
-                
+
         }
 
         /// <summary>
@@ -146,51 +146,51 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
             House item = (House)ListBox_AllHouse.SelectedItem;
             if (item is not null)
             {
-                MessageBoxResult result= MessageBox.Show($"Удалить\n{item.ToString()}?",
+                MessageBoxResult result = MessageBox.Show($"Удалить\n{item.ToString()}?",
                     "Удалить", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.OK)
                 {
                     item.Delete();
                     Btn_Update_Click(sender, e);
-                }             
+                }
             }
-                
+
 
         }
 
         /// <summary>
-        /// Обрабочик события нажатия кнопки Найти.
+        /// Обработчик события нажатия кнопки Найти.
         /// Открывает окно поиска
         /// </summary>
         private void Btn_Find_Click(object sender, RoutedEventArgs e)
         {
             HouseViewUC.InputIsEnabled(false);
             // Окно поиска не модальное, но может быть открыто только в одном экземпляре.
-            if (findHouseWindow is not null) 
+            if (findHouseWindow is not null)
             {
                 findHouseWindow.Focus();
-            } 
+            }
             else
             {
                 houses.Clear();
 
-                findHouseWindow = new FindHouse() { Owner=this};
-                findHouseWindow.Closed += (EventHandler)( (sender, e) => this.findHouseWindow = null);
-                // Обработчик события очищает коллекцию связаную с ListBox.
+                findHouseWindow = new FindHouse() { Owner = this };
+                findHouseWindow.Closed += (EventHandler)((sender, e) => this.findHouseWindow = null);
+                // Обработчик события очищает коллекцию связанную с ListBox.
                 // Заполняет коллекцию объектами поиска
                 findHouseWindow.FindingCompletionEvent +=
-                    (sender, e) => 
-                    { 
+                    (sender, e) =>
+                    {
                         houses.Clear();
-                        foreach(House item in findHouseWindow.Houses) houses.Add(item);
+                        foreach (House item in findHouseWindow.Houses) houses.Add(item);
                     };
-                
+
                 findHouseWindow.Show();
             }
         }
 
         /// <summary>
-        /// Обработчик события нажатия конпки Сохранить.
+        /// Обработчик события нажатия кнопки Сохранить.
         /// Обновляет данные в базе данных и ListBox.
         /// </summary>
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
@@ -211,8 +211,8 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
 
         /// <summary>
         /// Устанавливает стиль кнопкам.
-        /// Кнопки видны когда пользовательский элемент  управения HouseViewUserControl доступен
-        /// доступен для редкатирования данных.
+        /// Кнопки видны когда пользовательский элемент  управления HouseViewUserControl доступен
+        /// доступен для редактирования данных.
         /// </summary>
         private void installStyleDynamicVisible(ref Button btn)
         {
@@ -222,7 +222,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
             Binding visibilityBinding = new Binding("InputEnabled")
             {
                 //Кнопка видна, когда пользовательский элемент
-                //управения HouseViewUserControl доступен  для редкатирования данных.
+                //управления HouseViewUserControl доступен  для редактирования данных.
                 Source = HouseViewUC,
                 Converter = new BooleanToVisibilityConverter()
             };
@@ -247,17 +247,27 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
 
 
             Button btSave = new Button()
-            { Name = "Btn_Save", Content = "Сохранить", Background = Brushes.DarkBlue,
-              FontSize= fontSize, FontFamily = fontFamily, Padding=padding,
-              Foreground = foreground,
+            {
+                Name = "Btn_Save",
+                Content = "Сохранить",
+                Background = Brushes.DarkBlue,
+                FontSize = fontSize,
+                FontFamily = fontFamily,
+                Padding = padding,
+                Foreground = foreground,
             };
             btSave.Click += Btn_Save_Click;
 
             Button btCancel = new Button()
             {
-                Name = "Btn_Cancel", Content = "Отмена", Background = Brushes.DarkRed,
-                FontSize=fontSize, FontFamily=fontFamily, Padding=padding,
-                Margin = new Thickness(15, 0, 0, 0),Foreground = foreground,
+                Name = "Btn_Cancel",
+                Content = "Отмена",
+                Background = Brushes.DarkRed,
+                FontSize = fontSize,
+                FontFamily = fontFamily,
+                Padding = padding,
+                Margin = new Thickness(15, 0, 0, 0),
+                Foreground = foreground,
             };
             btCancel.Click += Btn_Cancel_Click;
 
