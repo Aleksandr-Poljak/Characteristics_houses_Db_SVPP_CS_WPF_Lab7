@@ -134,8 +134,32 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
-        public void Udpade()
+        public void Update()
         {
+            using(var conn = dbManager.GetNewConnection())
+            {
+                string sqlStr = "Update Housing SET " +
+                    "City=@City, Street=@Street, Number=@Number, Flat=@Flat, Floor=@Floor, " +
+                    "HasElevator=@HasElevator, Tel=@Tel, OwnerFIO=@OwnerFIO " +
+                    "WHERE(Id=@Id)";
+                SqlCommand sqlCmd_Update = new(sqlStr, conn);
+
+                SqlParameter[] param = new SqlParameter[]
+                {
+                    new SqlParameter("Id", Id),
+                    new SqlParameter("City", City),
+                    new SqlParameter("Street", Street),
+                    new SqlParameter("Number", Number),
+                    new SqlParameter("Flat", (object)Flat ?? DBNull.Value),
+                    new SqlParameter("HasElevator", HasElevator),
+                    new SqlParameter("Floor", (object)Floor ?? DBNull.Value),
+                    new SqlParameter("Tel", (object)Tel ?? DBNull.Value),
+                    new SqlParameter("OwnerFIO", (object)Owner ?? DBNull.Value),
+                };
+
+                sqlCmd_Update.Parameters.AddRange(param);
+                sqlCmd_Update.ExecuteNonQuery();
+            }
 
         }
         
@@ -225,7 +249,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
                             reader["Flat"] is System.DBNull ? null : (int)reader["Flat"],
                             reader["Floor"] is System.DBNull ? null : (int)reader["Floor"],
                             reader["OwnerFIO"] is System.DBNull ? null : (string)reader["OwnerFIO"],
-                            reader["Tel"] is System.DBNull ? null : (int)reader["Flat"]
+                            reader["Tel"] is System.DBNull ? null : (int)reader["Tel"]
                             );
                         newHouse.Id = (int)reader["Id"];
                         resultHouse = newHouse;
@@ -303,7 +327,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
                             reader["Flat"] is System.DBNull ? null : (int)reader["Flat"],
                             reader["Floor"] is System.DBNull ? null : (int)reader["Floor"],
                             reader["OwnerFIO"] is System.DBNull ? null : (string)reader["OwnerFIO"],
-                            reader["Tel"] is System.DBNull ? null : (int)reader["Flat"]
+                            reader["Tel"] is System.DBNull ? null : (int)reader["Tel"]
                             );
                         house.Id = (int) reader["Id"];
                         yield return house;

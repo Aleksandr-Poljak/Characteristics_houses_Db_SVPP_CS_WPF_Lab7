@@ -90,6 +90,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
         private void Btn_Update_Click(object sender, RoutedEventArgs e)
         {
             houses.Clear();
+            HouseViewUC.InputIsEnabled(false);
             foreach (House item in House.GetAllHouses()) houses.Add(item);
 
         }
@@ -99,6 +100,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
         /// </summary>
         private void Btn_View_Click(object sender, RoutedEventArgs e)
         {
+            HouseViewUC.InputIsEnabled(false);
             House item = (House)ListBox_AllHouse.SelectedItem;
             if (item is not null)           
                 HouseViewUC.ViewHouse(ref item);        
@@ -111,6 +113,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
         /// </summary>
         private void Btn_Insert_Click(object sender, RoutedEventArgs e)
         {
+            HouseViewUC.InputIsEnabled(false);
             NewHouse newHouseWindow = new();
             if (newHouseWindow.ShowDialog() == true)
             {
@@ -119,10 +122,19 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
             }
         }
 
+        /// <summary>
+        /// Обработчик события кнопки Редактировать.
+        /// Включает поля HouseViewUserContro для редактирвоания. 
+        /// </summary>
         private void Btn_Edit_Click(object sender, RoutedEventArgs e)
         {
-            HouseViewUC.InputIsEnabled(true);
-
+            House item = (House)ListBox_AllHouse.SelectedItem;
+            if (item is not null  && item.Id != 0)
+            {
+                HouseViewUC.ViewHouse(ref item);
+                HouseViewUC.InputIsEnabled(true);
+            }
+                
         }
 
         /// <summary>
@@ -131,6 +143,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
         /// </summary>
         private void Btn_Delete_Click(object sender, RoutedEventArgs e)
         {
+            HouseViewUC.InputIsEnabled(false);
             House item = (House)ListBox_AllHouse.SelectedItem;
             if (item is not null)
             {
@@ -152,6 +165,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
         /// </summary>
         private void Btn_Find_Click(object sender, RoutedEventArgs e)
         {
+            HouseViewUC.InputIsEnabled(false);
             // Окно поиска не модальное, но может быть открыто только в одном экземпляре.
             if (findHouseWindow is not null) 
             {
@@ -178,15 +192,16 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
 
         /// <summary>
         /// Обработчик события нажатия конпки Сохранить.
+        /// Обновляет данные в базе данных и ListBox.
         /// </summary>
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
         {
             HouseViewUC.InputIsEnabled(false);
+            HouseViewUC.House.Update();
+
+            Btn_Update_Click(this, e);
         }
 
-        /// <summary>
-        /// Обработчик события нажатия конпки Отмена.
-        /// </summary>
         private void Btn_Cancel_Click(object sender, RoutedEventArgs e)
         {
             HouseViewUC.InputIsEnabled(false);
