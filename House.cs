@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
 {
-    public class House: INotifyPropertyChanged
+    public class House: INotifyPropertyChanged, IDataErrorInfo
     {
 
         static DbManager dbManager = new DbManager("DefaultConnection");
@@ -108,6 +108,47 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
                 OnPropertyChanged(nameof(Owner));
             }
         }
+
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = String.Empty;
+                switch (columnName)
+                {
+                    case nameof(City):
+                        if (City.Length > 50 || City.Length == 0)
+                            error = "Неверная длина!";
+                        break;
+                    case nameof(Street):
+                        if (Street.Length > 50 || Street.Length == 0)
+                            error = "Неверная длина!";
+                        break;
+                    case nameof(Number):
+                        if (Number < 1)
+                            error = "Неверно указан номер дома";
+                        break;
+                    case nameof(Flat):
+                        if(Flat is int f && f < 1)
+                            error = "Неверно указан номер квартиры";
+                        break;
+                    case nameof(Floor):
+                        if (Floor is int fl && fl < 0)
+                            error = "Неверно указан этаж";
+                        break;
+                    case nameof(Owner):
+                        if (Owner is string && Owner.Length > 50)
+                            error = "Слишком длинное поле!";
+                        break;
+
+                }
+
+                return error;
+            }
+        }
+
         public House() { }
         public House(string city, string street, int number,
             bool hasElevator = false, int? flat = null, int? floor = null,
