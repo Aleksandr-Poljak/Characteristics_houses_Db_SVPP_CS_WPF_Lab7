@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,9 +21,31 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
     /// <summary>
     /// Визуально отображает данные переданного объекта House, позволяет его редактировать.
     /// </summary>
-    public partial class HouseViewUserControl : UserControl
+    public partial class HouseViewUserControl : UserControl ,INotifyPropertyChanged
     {
         public House House ;
+
+        private bool inputEnabled = false;
+        public bool InputEnabled
+        {
+            get => inputEnabled;
+            private set 
+            {
+                if (inputEnabled != value)
+                {
+                    inputEnabled = value;
+                    OnPropertyChanged(nameof(InputEnabled));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public HouseViewUserControl()
         {
             InitializeComponent();
@@ -40,6 +65,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
                 if (item is Control element) element.IsEnabled = IsEnabled;
             }
             TextBox_Id.IsEnabled = false;
+            InputEnabled = IsEnabled;
         }
 
         /// <summary>

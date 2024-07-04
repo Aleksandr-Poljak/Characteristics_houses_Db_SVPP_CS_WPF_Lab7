@@ -14,17 +14,22 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Name="StackPanel_Buttons" Grid.Column="0">
-            <Button Name="Btn_View" Content="Просмотор" Margin="25 100 25 10"
+            
+            <Button Name="Btn_View" Content="Просмотор" Margin="25 30 25 10"
                     Click="Btn_View_Click"/>
             <Button Name="Btn_Edit" Content="Редактировать" Click="Btn_Edit_Click"/>
             <Button Name="Btn_Insert" Content="Вставить" Click="Btn_Insert_Click"/>
             <Button Name="Btn_Find" Content="Найти" Click="Btn_Find_Click"/>
             <Button Name="Btn_Update" Content="Обновить" Click="Btn_Update_Click"/>
             <Button Name="Btn_Delete" Content="Удалить" Click="Btn_Delete_Click" />
+
+            <StackPanel Name="StackPanel_BtnSaveCancel" Orientation="Horizontal"
+                        Margin="25 100 25 0"/>
+
         </StackPanel>
         
-        <!--Добавлен для няглядности при верстке.Удалить при сборке. Добавляется в коде-->   
-        <local:HouseViewUserControl  Grid.Column="2"/>
+        <!--Добавлен для няглядности при верстке.Удалить при сборке. Добавляется в коде-->
+        <local:HouseViewUserControl x:Name="MainWindow_HouseViewUC" Grid.Column="2"/>
 
         <ListBox x:Name="ListBox_AllHouse" Grid.Column="1" Margin="5" Background="DarkGray"
                  ItemsSource="{Binding}"/>

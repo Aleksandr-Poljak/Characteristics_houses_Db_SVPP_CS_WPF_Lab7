@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style TargetType="Button">
+    <Style x:Name="Style_ButtonsGlobal" TargetType="Button">
         <Setter Property="Margin" Value="25 10 25 10"/>
         <Setter Property="Padding" Value="3"/>
         <Setter Property="Background">
@@ -14,7 +14,6 @@
         <Setter Property="Foreground" Value="WhiteSmoke"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="FontFamily" Value="Comic Sans MS"/>
-
     </Style>
 
 </ResourceDictionary>
