@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
 {
@@ -179,6 +180,9 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
+        /// <summary>
+        /// Обнавляет бъект в базе данных.
+        /// </summary>
         public void Update()
         {
             using(var conn = dbManager.GetNewConnection())

@@ -16,6 +16,17 @@
             <Setter Property="MaxLength" Value="50"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontFamily" Value="Arial"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Trigger.Setters>
+                        <Setter Property="ToolTip" 
+                                Value="{Binding RelativeSource={RelativeSource Mode=Self},
+                                        Path=(Validation.Errors)[0].ErrorContent}"
+                        />
+                        <Setter Property="Foreground" Value="Red"/>
+                    </Trigger.Setters>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style TargetType="TextBlock">
@@ -30,7 +41,8 @@
         </Style>
 
         <local:IntToStringConverter x:Key="IntToStringConverter"/>
-        
+        <local:NullToStringConverter x:Key="NullToStringConverter"/>
+
     </UserControl.Resources>
     <Grid Name="Grid_Main_HouseView" Background="DarkGray">
         <Grid.ColumnDefinitions>
@@ -52,7 +64,7 @@
             </Grid.RowDefinitions>
             <TextBox Name="TextBox_Id"  Grid.Row="0" Grid.Column="1">
                 <TextBox.Text>
-                    <Binding Path="Id" Mode="TwoWay"
+                    <Binding Path="Id" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"
                              Converter="{StaticResource IntToStringConverter}">
                         <Binding.ValidationRules>
                             <DataErrorValidationRule/>
@@ -63,7 +75,7 @@
 
             <TextBox Name="TextBox_City" Grid.Row="1" Grid.Column="1">
                 <TextBox.Text>
-                    <Binding Path="City" Mode="TwoWay">
+                    <Binding Path="City" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <DataErrorValidationRule/>
                         </Binding.ValidationRules>
@@ -73,7 +85,7 @@
 
             <TextBox Name="TextBox_Street" Grid.Row="2" Grid.Column="1">
                 <TextBox.Text>
-                    <Binding Path="Street" Mode="TwoWay">
+                    <Binding Path="Street" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"> 
                         <Binding.ValidationRules>
                             <DataErrorValidationRule/>
                         </Binding.ValidationRules>
@@ -83,7 +95,7 @@
 
             <TextBox Name="TextBox_Number" Grid.Row="3" Grid.Column="1">
                 <TextBox.Text>
-                    <Binding Path="Number" Mode="TwoWay"
+                    <Binding Path="Number" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"
                              Converter="{StaticResource IntToStringConverter}">
                         <Binding.ValidationRules>
                             <DataErrorValidationRule/>
@@ -94,7 +106,9 @@
 
             <TextBox Name="TextBox_Floor" Grid.Row="4" Grid.Column="1">
                 <TextBox.Text>
-                    <Binding Path="Floor" Mode="TwoWay">
+                    <Binding Path="Floor" Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             Converter="{StaticResource NullToStringConverter}">
                         <Binding.ValidationRules>
                             <DataErrorValidationRule/>
                         </Binding.ValidationRules>
@@ -104,7 +118,9 @@
 
             <TextBox Name="TextBox_Flat" Grid.Row="5" Grid.Column="1">
                 <TextBox.Text>
-                    <Binding Path="Flat" Mode="TwoWay">
+                    <Binding Path="Flat" Mode="TwoWay" 
+                             UpdateSourceTrigger="PropertyChanged"
+                             Converter="{StaticResource NullToStringConverter}">
                         <Binding.ValidationRules>
                             <DataErrorValidationRule/>
                         </Binding.ValidationRules>
@@ -128,7 +144,8 @@
 
             <TextBox Name="TextBox_Owner" Grid.Row="7" Grid.Column="1">
                 <TextBox.Text>
-                    <Binding Path="Owner" Mode="TwoWay">
+                    <Binding Path="Owner" Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <DataErrorValidationRule/>
                         </Binding.ValidationRules>
@@ -138,7 +155,9 @@
             
             <TextBox Name="TextBox_Tel" Grid.Row="8" Grid.Column="1">
                 <TextBox.Text>
-                    <Binding Path="Tel" Mode="TwoWay">
+                    <Binding Path="Tel" Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             Converter="{StaticResource NullToStringConverter}">
                         <Binding.ValidationRules>
                             <DataErrorValidationRule/>
                         </Binding.ValidationRules>

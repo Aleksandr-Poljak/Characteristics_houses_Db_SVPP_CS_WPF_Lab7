@@ -8,6 +8,9 @@ using System.Windows.Data;
 
 namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
 {
+    /// <summary>
+    ///  Конвертер для отображения нулевых значений.
+    /// </summary>
     internal class IntToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

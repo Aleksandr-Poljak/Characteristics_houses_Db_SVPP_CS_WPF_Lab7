@@ -26,6 +26,9 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
         public House House ;
 
         private bool inputEnabled = false;
+        /// <summary>
+        /// Флаг сообщающий доступны поля для ввода или нет.
+        /// </summary>
         public bool InputEnabled
         {
             get => inputEnabled;

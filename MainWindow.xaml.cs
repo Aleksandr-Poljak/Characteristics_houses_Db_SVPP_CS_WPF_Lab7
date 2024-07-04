@@ -51,8 +51,7 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
             HouseViewUC.Margin = new Thickness(5);
             Grid.SetColumn(HouseViewUC, 2);
 
-            Grid_Main.Children.Add(HouseViewUC);
-            
+            Grid_Main.Children.Add(HouseViewUC);        
         }
 
         /// <summary>
@@ -202,6 +201,9 @@ namespace SVPP_CS_WPF_Lab7_Characteristics_houses_Db
             Btn_Update_Click(this, e);
         }
 
+        /// <summary>
+        /// Обработчик нажатия Отменить при редактировании данных.
+        /// </summary>
         private void Btn_Cancel_Click(object sender, RoutedEventArgs e)
         {
             HouseViewUC.InputIsEnabled(false);
